@@ -14,9 +14,8 @@ const standardComponentWidth = (0.82 * windowSize.width);
 
 const colors = {
   facebook: 'rgb(59, 89, 152)',
-  text: 'rgba(255, 255, 255, 255, 0.7)',
+  text: 'rgba(255, 255, 255, 0.7)',
   socialMediaButtonBorderColor: 'rgba(255, 255, 255, 0.35)'
-  //rgb=red,green,blue: facebook standard color
 }
 
 const sizes = {
@@ -37,6 +36,11 @@ const sizes = {
 
   }
 
+
+buttonTapped = () => {
+   console.log('Button succeccfuly tapped');
+}
+
   loginScreenComponent = () => {
     return(
       <ImageBackground
@@ -54,6 +58,17 @@ const sizes = {
           source={require('./src/images/instagram-text-logo.png')}
         />
 
+        <LoginButton
+          buttonViewStyle={viewStyles.instagramLoginButtonView}
+          buttonTextStyle={textStyles.instagramButtonTextStyle}
+          buttonTapped={this.buttonTapped}
+          touchableHighlightStyle={viewStyles.instagramTouchableHighlightStyle}
+          active0pacity={0.75}
+        >
+          Log In (Via Instagram)
+        </LoginButton>
+
+
       </ScrollView>
 
       </ImageBackground>
@@ -67,6 +82,8 @@ const sizes = {
       this.loginScreenComponent()
     );
   }
+
+
 }
 
 const viewStyles = {
@@ -85,8 +102,30 @@ const viewStyles = {
 
   scrollViewStyle: {
     paddingTop: '35%'
+  },
+
+  instagramLoginButtonView: {
+    backgroundColor: 'transparent',
+    borderColor: colors.socialMediaButtonBorderColor,
+    borderWidth: sizes.borderWidth,
+    borderRadius: sizes.borderRadius,
+    width: standardComponentWidth,
+    height: sizes.buttonHeight
+  },
+  instagramTouchableHighlightStyle: {
+    width: standardComponentWidth,
   }
+
 };
 
+const textStyles = {
+
+  instagramButtonTextStyle: {
+    color: colors.text,
+    fontWeight: '500'
+  }
+
+}
+
 //uigradients.com for soft background images
-export default App
+export default App;
