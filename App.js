@@ -2,10 +2,31 @@ import React, { Component } from 'react';
 import { Text, View, ImageBackground, Image, ScrollView } from 'react-native';
 import Dimensions from 'Dimensions';
 
+//Import Custom Components Here
+import LoginButton from './src/components/LoginButton';
+
+
 //this code will give us the height and the width of
 const windowSize = Dimensions.get('window');
 
-export default class App extends Component {
+//size definitions HERE
+const standardComponentWidth = (0.82 * windowSize.width);
+
+const colors = {
+  facebook: 'rgb(59, 89, 152)',
+  text: 'rgba(255, 255, 255, 255, 0.7)',
+  socialMediaButtonBorderColor: 'rgba(255, 255, 255, 0.35)'
+  //rgb=red,green,blue: facebook standard color
+}
+
+const sizes = {
+  buttonHeight: 45,
+  pageFontSize: 12,
+  borderWidth: 0.8,
+  borderRadius: 5
+}
+
+ class App extends Component {
 
   constructor(props){
     super(props);
@@ -68,3 +89,4 @@ const viewStyles = {
 };
 
 //uigradients.com for soft background images
+export default App
