@@ -17,7 +17,8 @@ getViewComponent = () => {
          style={[ {width:30, height: 30}, this.props.iconStyle]}
          source={this.props.iconSource}
          />
-         <Text style={[this.props.buttonTextStyle, {backgroundColor: 'transparent', marginLeft: 20}]}>{this.props.children}</Text>
+         <Text style={[this.props.buttonTextStyle, {backgroundColor: 'transparent', marginLeft: 5}]}>{this.props.children}
+         </Text>
       </View>
     );
   }
@@ -37,7 +38,7 @@ getViewComponent = () => {
   render(){
     return(
       <TouchableHighlight
-         underlayColour={'transparent'}
+         underlayColor={'transparent'}
          active0pacity={this.props.active0pacity}
          style={[this.props.touchableHighlightStyle, viewStyles.touchableHighlightStyle]}
          onPress={this.props.buttonTapped}
