@@ -112,7 +112,7 @@ loginWithTwitterComponent = () => {
         acebook
       </LoginButton>
 
-        { this.forgotLoginDetailsComponent()}
+        { this.forgotLoginDetailsComponent('Forgot your login details?', 'Get help signing in.', urls.forgotInstagramLogin)}
 
         {this.orSeparatorComponent()}
 
@@ -124,17 +124,18 @@ loginWithTwitterComponent = () => {
     );
   }
 
-  forgotLoginDetailsComponent = () => {
+
+  forgotLoginDetailsComponent = (normalText, boldText, url) => {
     return(
         <View style={viewStyles.forgotLoginDetailsContainer}>
-          <Text style={textStyles.forgotLoginDetails}>Forgot my Login details!
+          <Text style={textStyles.forgotLoginDetails}>{normalText}
           </Text>
           <TappableText
             textStyle={[textStyles.forgotLoginDetails, textStyles.forgotLoginDetailsBold]}
-            textTapped={ () => Linking.openURL(urls.instagramAuthLogin)}
+            textTapped={ () => Linking.openURL(url)}
           >
-            I need help signing in
 
+           {boldText}
           </TappableText>
         </View>
     );
