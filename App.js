@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ImageBackground, Image, ScrollView, Linking } from 'react-native';
+import { Text, View, ImageBackground, Image, ScrollView, Linking, WebView } from 'react-native';
 import Dimensions from 'Dimensions';
 
 //Import Custom Components Here
@@ -40,18 +40,47 @@ const urls = {
   constructor(props){
     super(props);
 
+    //this is what the state of the app will be when the app first starts up
     this.state = {
-
+      authenticationURL: urls.instagramAuthLogin,
+      accessToken: '',
+      displayAuthenticationWebView: false,
+      displayLoginScreen: true
     }
 
   }
 
 
-buttonTapped = () => {
-   console.log('Button successfuly tapped');
+  onURLStateChange= (webViewState) => {
+
+  //the String to search for in the url in order to get an access token
+  const accessTokenSubString = 'access_token=';
+
+  //this will store the currentURL being dislayed in our custom browser
+  const currentURL = webViewState.url;
+
+  console.log('Current URL =' + currentURL);
+
 }
 
-loginWithTwitterComponent = () => {
+
+  authenticationWebViewComponent = () => {
+    return(
+      <WebView
+        source={{ uri: this.state.authenticationURL }}
+        startInLoadingState={true}
+        onNavigationStateChange={this.onURLStateChange}
+      />
+    );
+  }
+
+  buttonTapped = () => {
+    //when the button is pressed, change displayAuthenticationWebView to true
+    this.setState({ displayAuthenticationWebView: true, displayLoginScreen: false });
+    console.log('Button succesfully tapped');
+  }
+
+  loginWithTwitterComponent = () => {
    return(
      <View style={viewStyles.twitterLoginContainer}>
 
@@ -163,9 +192,18 @@ loginWithTwitterComponent = () => {
   }
 
   render() {
-    return (
-      this.loginScreenComponent()
-    );
+
+    if(this.state.displayLoginScreen && this.state.displayAuthenticationWebView == false){
+       return (
+         this.loginScreenComponent()
+      );
+    }
+    else if (this.state.displayLoginScreen == false && this.state.displayAuthenticationWebView){
+       return(
+         this.authenticationWebViewComponent()
+       );
+    }
+
   }
 
 
