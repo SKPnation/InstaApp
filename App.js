@@ -5,6 +5,7 @@ import Dimensions from 'Dimensions';
 //Import Custom Components Here
 import LoginButton from './src/components/LoginButton';
 import TappableText from './src/components/TappableText';
+import InstaNavigationBar from './src/components/InstaNavigationBar';
 
 //this code will give us the height and the width of
 const windowSize = Dimensions.get('window');
@@ -61,8 +62,33 @@ const urls = {
 
   console.log('Current URL =' + currentURL);
 
+  //if the currentURL includes the accessTokenSubString
+  if(currentURL.includes(accessTokenSubString)){
+    //if the access token hasn't been set
+    if(this.state.accessToken.length < 1){
+      if(this.state.accessToken.length < 1){
+
+        //this will store the index of the a in access_token= and add on the number of the characters in access_token= to find the beginning of the access token
+        var startIndexOfAccessToken = currentURL.lastIndexOf(accessTokenSubString) + accessTokenSubString.length;
+        var foundAccessToken = currentURL.substr(startIndexOfAccessToken);
+
+        console.log('found Access Token =' + foundAccessToken);
+
+        this.setState({accessToken: foundAccessToken, displayAuthenticationWebView: false, displayLoginScreen: false });
+
+      }
+    }
+  }
+
 }
 
+instagramFeedPageComponent= () => {
+  return(
+    <View style={[ viewStyles.container, ]}>
+      <InstaNavigationBar />
+    </View>
+  );
+}
 
   authenticationWebViewComponent = () => {
     return(
@@ -193,6 +219,8 @@ const urls = {
 
   render() {
 
+    const shouldDisplayFeedPage = (this.state.accessToken.length > 1 && this.state.displayAuthenticationWebView == false && this.state.displayLoginScreen == false)
+
     if(this.state.displayLoginScreen && this.state.displayAuthenticationWebView == false){
        return (
          this.loginScreenComponent()
@@ -202,6 +230,11 @@ const urls = {
        return(
          this.authenticationWebViewComponent()
        );
+    }
+    else if (shouldDisplayFeedPage){
+      return(
+        this.instagramFeedPageComponent()
+      );
     }
 
   }
@@ -214,8 +247,8 @@ const viewStyles = {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
   },
+
   instagramLogo: {
     width: (0.45 * windowSize.width),
     height: (0.15 * windowSize.height),
