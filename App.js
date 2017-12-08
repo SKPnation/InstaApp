@@ -112,7 +112,7 @@ loginWithTwitterComponent = () => {
         acebook
       </LoginButton>
 
-        { this.forgotLoginDetailsComponent('Forgot your login details?', 'Get help signing in.', urls.forgotInstagramLogin)}
+        {this.forgotLoginDetailsComponent('Forgot your login details?', 'Get help signing in.', urls.forgotInstagramLogin)}
 
         {this.orSeparatorComponent()}
 
@@ -120,10 +120,20 @@ loginWithTwitterComponent = () => {
 
       </ScrollView>
 
+       {this.signupFooterComponent()}
+
       </ImageBackground>
     );
   }
 
+  signupFooterComponent = () => {
+    return (
+      <View style={viewStyles.signupFooterContainer}>
+            {this.forgotLoginDetailsComponent('Dont have an account?', 'Sign up.', urls.instagramSignUp)}
+      </View>
+    );
+
+  }
 
   forgotLoginDetailsComponent = (normalText, boldText, url) => {
     return(
@@ -140,22 +150,6 @@ loginWithTwitterComponent = () => {
         </View>
     );
 
-  }
-  //create a component for don't have an account? Sign up
-  dontHaveAnAccountComponent = () => {
-    return(
-      <View style={viewStyles.dontHaveAnAccountContainer}>
-        <Text style={textStyles.dontHaveAnAccountDetails}>Dont have an account?
-        </Text>
-      <TappableText
-        textStyle={[textStyles.dontHaveAnAccountDetails, textStyles.dontHaveAnAccountDetailsBold]}
-        textTapped={ () => Linking.openUrl(urls.instagramSignUp)}
-      >
-        Sign Up
-
-      </TappableText>
-      </View>
-    );
   }
 
   orSeparatorComponent = () => {
@@ -242,13 +236,6 @@ const viewStyles = {
     marginHorizontal: 5
   },
 
-  dontHaveAnAccountContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10
-  },
-
   twitterLoginContainer: {
     flexDirection: 'row',
     flex: 1,
@@ -259,6 +246,18 @@ const viewStyles = {
     width: sizes.twitterIcon,
     height: sizes.twitterIcon,
     marginRight: 4,
+  },
+  signupFooterContainer: {
+    flex: 0.3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.25)',
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 5.5},
+    width: '100%',
+    paddingBottom: 10
   }
 
 };
@@ -288,12 +287,6 @@ const textStyles = {
     fontWeight: 'bold'
   },
 
-  dontHaveAnAccountDetailsBold: {
-    color: 'white',
-    backgroundColor: 'transparent',
-    fontSize: sizes.pageFontSize,
-    marginRight: 5
-  }
 
 
 }
