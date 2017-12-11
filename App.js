@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ImageBackground, Image, ScrollView, Linking, WebView } from 'react-native';
+import { Text, View, ImageBackground, Image, ScrollView, Linking, WebView, FlatList } from 'react-native';
 import Dimensions from 'Dimensions';
 
 //Import Custom Components Here
@@ -7,6 +7,7 @@ import LoginButton from './src/components/LoginButton';
 import TappableText from './src/components/TappableText';
 import InstaNavigationBar from './src/components/InstaNavigationBar';
 import NetworkManager from './src/model/NetworkManager';
+import InstaFeedCell from './src/components/InstaFeedCell';
 
 //this code will give us the height and the width of
 const windowSize = Dimensions.get('window');
@@ -80,12 +81,11 @@ const urls = {
          this.apiManager.getSessionAndFeedData((userData) => {
           this.userData = userData;
           console.log(userData);
-          this.setState({accessToken: foundAccessToken, displayAuthenticationWebView: false, displayLoginScreen: false });
         },
         (feedData) => {
           this.feedData = feedData;
-            console.log(feedData)
-
+          console.log(feedData)
+          this.setState({accessToken: foundAccessToken, displayAuthenticationWebView: false, displayLoginScreen: false });
           });
         }
       }
@@ -97,9 +97,16 @@ instagramFeedPageComponent= () => {
   return(
     <View style={[ viewStyles.container, ]}>
       <InstaNavigationBar />
+      <FlatList
+        data={this.feedData}
+        renderItem={ ({item}) => <InstaFeedCell cellData={item}/> }
+        keyExtractor={ item => item.id}
+      />
     </View>
   );
 }
+
+
 
   authenticationWebViewComponent = () => {
     return(
