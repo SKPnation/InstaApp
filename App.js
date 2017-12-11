@@ -6,6 +6,7 @@ import Dimensions from 'Dimensions';
 import LoginButton from './src/components/LoginButton';
 import TappableText from './src/components/TappableText';
 import InstaNavigationBar from './src/components/InstaNavigationBar';
+import NetworkManager from './src/model/NetworkManager';
 
 //this code will give us the height and the width of
 const windowSize = Dimensions.get('window');
@@ -74,11 +75,21 @@ const urls = {
 
         console.log('found Access Token =' + foundAccessToken);
 
-        this.setState({accessToken: foundAccessToken, displayAuthenticationWebView: false, displayLoginScreen: false });
+         this.apiManager = new NetworkManager(foundAccessToken);
 
+         this.apiManager.getSessionAndFeedData((userData) => {
+          this.userData = userData;
+          console.log(userData);
+          this.setState({accessToken: foundAccessToken, displayAuthenticationWebView: false, displayLoginScreen: false });
+        },
+        (feedData) => {
+          this.feedData = feedData;
+            console.log(feedData)
+
+          });
+        }
       }
     }
-  }
 
 }
 
